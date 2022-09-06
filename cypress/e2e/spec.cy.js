@@ -65,6 +65,17 @@ describe('waitIfHappens', () => {
       .should('have.length', 4)
   })
 
+  it('waits and yields only call', () => {
+    const n = 5
+    cy.get('h1').should('be.visible').makeAppRequest(400, n)
+    cy.waitIfHappens({
+      alias: '@users',
+      timeout: 1000,
+      lastCall: true,
+      yieldResponseBody: true,
+    }).should('have.length', n)
+  })
+
   it('before the call with assertions', () => {
     cy.get('h1').should('be.visible').makeAppRequest(1000)
     cy.waitIfHappens('@users').its('response.body').should('have.length', 3)

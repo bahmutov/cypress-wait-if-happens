@@ -2,13 +2,12 @@
 
 > A better `cy.wait` command
 
-## DO NOT USE YET
-
 - if the request happens, yields the intercept
 - if the request does not happen within the timeout, yields `undefined`
 - can yield the response body via the option `yieldResponseBody: true`
 - can yield the last intercept via the option `lastCall: true`
 - includes types in [src/index.d.ts](./src/index.d.ts)
+- good to use in combination with the [cypress-if](https://github.com/bahmutov/cypress-if) plugin
 
 ```js
 import 'cypress-wait-if-happens'
@@ -23,7 +22,98 @@ cy.waitIfHappens({
   .should('have.length', 4)
 ```
 
-Good to use in combination with the [cypress-if](https://github.com/bahmutov/cypress-if) plugin.
+## Install
+
+Add this plugin as a dev dependency to your project
+
+```bash
+# if using NPM
+$ npm i -D cypress-wait-if-happens
+# if using Yarn
+$ yarn add -D cypress-wait-if-happens
+```
+
+## Use
+
+Import the plugin in your spec or support file
+
+```js
+import 'cypress-wait-if-happens'
+```
+
+### Wait for a network call
+
+```js
+// timeout is in milliseconds
+// by default timeout is the current default command timeout
+cy.waitIfHappens(alias, timeout)
+```
+
+The above command does NOT fail if the network call is not made within `timeout` ms. You can yield the intercept or `undefined` to the next command
+
+```js
+cy.waitIfHappens(alias, timeout).then((intercept) => {
+  if (!intercept) {
+    // the call has not happened
+  } else {
+    // the intercepted call, same as
+    // the value yielded by cy.wait(alias)
+  }
+})
+```
+
+### Options object
+
+```js
+cy.waitIfHappens(alias, timeout)
+// equivalent to using an options object
+cy.waitIfHappens({ alias, timeout })
+```
+
+### Yield the response body
+
+**Note:** requires using the options object
+
+Because yielding the response body is so common, you can yield it (if the network call happens)
+
+```js
+cy.waitIfHappens({
+  alias,
+  timeout,
+  yieldResponseBody: true,
+}).then((body) => {
+  if (body) {
+    // there was a network call
+    // and we intercepted it
+  } else {
+    // no network call made
+  }
+})
+```
+
+### Yield the last call
+
+**Note:** requires using the options object
+
+The command `cy.wait` takes each network call one by one. If you are not sure how many calls there are, it is hard to say how many times to call `cy.wait`. In this plugin, you can take all current calls that have happened and yield the last one
+
+```js
+cy.waitIfHappens({
+  alias,
+  timeout,
+  lastCall: true,
+}).then((intercept) => {
+  if (intercept) {
+    // we waited until a call was made
+    // or if there were already multiple calls
+    // we get the last intercept object
+  } else {
+    // no matching network call made at all
+  }
+})
+```
+
+Waiting for the last call automatically waits for all of them by calling `cy.wait` repeatedly. If there are no calls made yet, waits up to the `timeout` period.
 
 Tested with Cypress v10 and v9
 
