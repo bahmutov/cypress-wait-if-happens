@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "A better `cy.wait` command",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
     "src"
   ],

@@ -1,4 +1,16 @@
-Cypress.Commands.add('waitIfHappens', (alias, timeout) => {
+Cypress.Commands.add('waitIfHappens', (_alias, _timeout) => {
+  let alias
+  let timeout
+
+  if (typeof _alias === 'object') {
+    // the user passed options object
+    alias = _alias.alias
+    timeout = _alias.timeout
+  } else {
+    alias = _alias
+    timeout = _timeout
+  }
+
   expect(alias, 'alias to wait for').to.be.a('string')
   if (!alias.startsWith('@')) {
     alias = '@' + alias

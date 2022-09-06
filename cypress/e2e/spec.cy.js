@@ -1,3 +1,4 @@
+/// <reference path="../../src/index.d.ts" />
 import 'cypress-if'
 import '../../src'
 
@@ -5,6 +6,7 @@ function makeAppRequest(timeout) {
   if (typeof timeout !== 'number') {
     throw new Error('Expect a timeout in milliseconds')
   }
+  // @ts-ignore
   const win = cy.state('window')
   if (!win) {
     throw new Error('Could not get app window')
@@ -52,6 +54,13 @@ describe('waitIfHappens', () => {
   it('after the call with assertions', () => {
     cy.get('h1').should('be.visible').makeAppRequest(1000).wait(1100)
     cy.waitIfHappens('@users').its('response.body').should('have.length', 3)
+  })
+
+  it('accepts options object', () => {
+    cy.get('h1').should('be.visible').makeAppRequest(1000)
+    cy.waitIfHappens({ alias: '@users', timeout: 1100 })
+      .its('response.body')
+      .should('have.length', 3)
   })
 
   it('before the call with assertions', () => {
