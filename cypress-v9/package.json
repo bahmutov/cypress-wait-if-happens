@@ -1,0 +1,16 @@
+{
+  "name": "cypress-v9",
+  "version": "1.0.0",
+  "description": "Testing the plugin using Cypress v9",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^9.7.0"
+  }
+}

@@ -1,9 +1,9 @@
-/// <reference path="../../src/index.d.ts" />
-import '../../src'
-import './utils'
+/// <reference path="../../../src/index.d.ts" />
+import '../../../src'
+import '../../../cypress/e2e/utils'
 
 beforeEach(() => {
-  cy.visit('cypress/index.html')
+  cy.visit('index.html')
   cy.intercept({
     pathname: '/users',
   }).as('users')
