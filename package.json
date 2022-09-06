@@ -1,7 +1,7 @@
 {
   "name": "cypress-wait-if-happens",
   "version": "1.0.0",
-  "description": "",
+  "description": "A better `cy.wait` command",
   "main": "src/index.js",
   "files": [
     "src"
