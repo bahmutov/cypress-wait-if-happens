@@ -1,13 +1,15 @@
 {
   "name": "cypress-wait-if-happens",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A better `cy.wait` command",
   "main": "src/index.js",
   "files": [
     "src"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress run",
+    "badges": "npx -p dependency-version-badge update-badge cypress",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "cypress-plugin",
@@ -18,6 +20,11 @@
   "devDependencies": {
     "cypress": "^10.7.0",
     "cypress-if": "^1.5.1",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/cypress-wait-if-happens.git"
   }
 }
