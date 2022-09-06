@@ -2,7 +2,7 @@
 import 'cypress-if'
 import '../../src'
 
-function makeAppRequest(timeout) {
+function makeAppRequest(timeout, limit = 3) {
   if (typeof timeout !== 'number') {
     throw new Error('Expect a timeout in milliseconds')
   }
@@ -12,7 +12,7 @@ function makeAppRequest(timeout) {
     throw new Error('Could not get app window')
   }
   setTimeout(() => {
-    win.fetch('https://jsonplaceholder.cypress.io/users?_limit=3')
+    win.fetch(`https://jsonplaceholder.cypress.io/users?_limit=${limit}`)
   }, timeout)
 }
 
@@ -73,6 +73,37 @@ describe('waitIfHappens', () => {
     })
       // no need to have .its("response.body") chained command
       .should('have.length', 3)
+  })
+
+  it('yields undefined as the response body', () => {
+    cy.get('h1').should('be.visible')
+    // the call never happens, but the user wants the response body
+    cy.waitIfHappens({
+      alias: '@users',
+      timeout: 1100,
+      yieldResponseBody: true,
+    }).should('be.undefined')
+  })
+
+  it('yields the last intercepted call', () => {
+    cy.get('h1')
+      .should('be.visible')
+      .makeAppRequest(100, 1)
+      .makeAppRequest(200, 2)
+      .makeAppRequest(300, 3)
+      .makeAppRequest(400, 4)
+      .wait(1000)
+    // so now 4 network calls have happened
+    // you can only yield the last intercepted call using the options object
+    cy.waitIfHappens({
+      alias: '@users',
+      timeout: 100,
+      lastCall: true,
+      yieldResponseBody: true,
+    })
+      // we should get the list with 4 users
+      // because that is the last call that happens
+      .should('have.length', 4)
   })
 
   it('before the call with assertions', () => {

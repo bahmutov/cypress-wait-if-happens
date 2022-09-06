@@ -3,3 +3,10 @@
 > A better `cy.wait` command
 
 ## DO NOT USE YET
+
+- if the request happens, yields the intercept
+- if the request does not happen within the timeout, yields `undefined`
+- can yield the response body via an option `yieldResponseBody: true`
+- can yield the last intercept via an option `lastCall: true`
+
+Good to use in combination with the [cypress-if](https://github.com/bahmutov/cypress-if) plugin.
