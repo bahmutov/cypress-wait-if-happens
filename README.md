@@ -24,3 +24,5 @@ cy.waitIfHappens({
 ```
 
 Good to use in combination with the [cypress-if](https://github.com/bahmutov/cypress-if) plugin.
+
+Tested with Cypress v10 and v9
