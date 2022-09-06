@@ -11,6 +11,11 @@ jobs:
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v4
 
+      - name: Run Cypress v9 tests 🧪
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: cypress-v9
+
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2
         with:
