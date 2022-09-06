@@ -115,6 +115,23 @@ cy.waitIfHappens({
 
 Waiting for the last call automatically waits for all of them by calling `cy.wait` repeatedly. If there are no calls made yet, waits up to the `timeout` period.
 
+## Using with cypress-if
+
+This plugin works great in combination with the [cypress-if](https://github.com/bahmutov/cypress-if) plugin. See more examples in [if.cy.js](./cypress/e2e/if.cy.js)
+
+```js
+cy.waitIfHappens({
+  alias: '@users',
+  timeout: 2000,
+  yieldResponseBody: true,
+})
+  .if()
+  .its('length')
+  .then((n) => {
+    cy.log(`got ${n} users`)
+  })
+```
+
 Tested with Cypress v10 and v9
 
 ## Small print

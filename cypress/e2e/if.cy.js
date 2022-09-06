@@ -39,5 +39,23 @@ describe('waitIfHappens', () => {
         .else()
         .log('no call')
     })
+
+    it('prints the number of users', () => {
+      cy.get('h1')
+        .should('be.visible')
+        // comment out to see the ".if()" skip
+        // the rest of the commands
+        .makeAppRequest(500, 5)
+      cy.waitIfHappens({
+        alias: '@users',
+        timeout: 2000,
+        yieldResponseBody: true,
+      })
+        .if()
+        .its('length')
+        .then((n) => {
+          cy.log(`got ${n} users`)
+        })
+    })
   })
 })
