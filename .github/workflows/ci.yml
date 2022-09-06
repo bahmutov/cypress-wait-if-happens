@@ -11,10 +11,24 @@ jobs:
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v4
 
+      - uses: actions/upload-artifact@v2
+        name: Store any screenshots 🖼
+        if: failure()
+        with:
+          name: cypress-screenshots-v9
+          path: cypress/screenshots
+
       - name: Run Cypress v9 tests 🧪
         uses: cypress-io/github-action@v4
         with:
           working-directory: cypress-v9
+
+      - uses: actions/upload-artifact@v2
+        name: Store any v9 screenshots 🖼
+        if: failure()
+        with:
+          name: cypress-screenshots-v9
+          path: cypress-v9/cypress/screenshots
 
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2
