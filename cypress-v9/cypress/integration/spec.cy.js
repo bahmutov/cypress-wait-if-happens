@@ -27,7 +27,7 @@ describe('waitIfHappens', () => {
     // you can only yield the response body using the options object
     cy.waitIfHappens({
       alias: '@users',
-      timeout: 1100,
+      timeout: 1500,
       yieldResponseBody: true,
     })
       // no need to have .its("response.body") chained command
