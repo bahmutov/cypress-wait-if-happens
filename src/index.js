@@ -1,11 +1,13 @@
 Cypress.Commands.add('waitIfHappens', (_alias, _timeout) => {
   let alias
   let timeout
+  let yieldResponseBody = false
 
   if (typeof _alias === 'object') {
     // the user passed options object
     alias = _alias.alias
     timeout = _alias.timeout
+    yieldResponseBody = Boolean(_alias.yieldResponseBody)
   } else {
     alias = _alias
     timeout = _timeout
@@ -37,7 +39,11 @@ Cypress.Commands.add('waitIfHappens', (_alias, _timeout) => {
       if (newIntercept) {
         // console.log(newIntercept)
         cy.log(`**${alias}** happened after ${elapsed}ms`)
-        return cy.wait(alias)
+        if (yieldResponseBody) {
+          return cy.wait(alias).its('response.body', { timeout: 0 })
+        } else {
+          return cy.wait(alias)
+        }
       }
       return cy.wait(100, { log: false }).then(waitRecursive)
     })

@@ -63,6 +63,18 @@ describe('waitIfHappens', () => {
       .should('have.length', 3)
   })
 
+  it('yields the response body', () => {
+    cy.get('h1').should('be.visible').makeAppRequest(1000)
+    // you can only yield the response body using the options object
+    cy.waitIfHappens({
+      alias: '@users',
+      timeout: 1100,
+      yieldResponseBody: true,
+    })
+      // no need to have .its("response.body") chained command
+      .should('have.length', 3)
+  })
+
   it('before the call with assertions', () => {
     cy.get('h1').should('be.visible').makeAppRequest(1000)
     cy.waitIfHappens('@users').its('response.body').should('have.length', 3)
