@@ -2,15 +2,22 @@
   "name": "cypress-wait-if-happens",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "cypress-plugin",
+    "network"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "cypress": "^10.7.0",
+    "cypress-if": "^1.5.1",
     "prettier": "^2.7.1"
   }
 }
