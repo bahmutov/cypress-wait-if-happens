@@ -30,6 +30,15 @@ jobs:
           name: cypress-screenshots-v9
           path: cypress-v9/cypress/screenshots
 
+  release:
+    needs: 'test'
+    runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+      - name: Install only the semantic release 📦
+        run: npm install semantic-release
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2
         with:
