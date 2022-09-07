@@ -2,6 +2,8 @@
 
 > A better `cy.wait` command
 
+- 🎓 Covered in my [Cypress Network Testing Exercises course](https://cypress.tips/courses/network-testing)
+
 - if the request happens, yields the intercept
 - if the request does not happen within the timeout, yields `undefined`
 - can yield the response body via the option `yieldResponseBody: true`
