@@ -20,7 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "cypress": "10.11.0",
-    "cypress-if": "1.12.3",
+    "cypress-if": "1.12.4",
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.5"
   },
