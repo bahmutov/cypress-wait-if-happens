@@ -9,7 +9,7 @@ jobs:
 
       - name: Run tests 🧪
         # https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v7.4.0
 
       - uses: actions/upload-artifact@v2
         name: Store any screenshots 🖼
@@ -26,12 +26,12 @@ jobs:
 
       - name: Install top dependencies 📦
         # https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v7.4.0
         with:
           runTests: false
 
       - name: Run Cypress v9 tests 🧪
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v7.4.0
         with:
           working-directory: cypress-v9
 
